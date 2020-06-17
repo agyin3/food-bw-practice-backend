@@ -11,6 +11,7 @@ exports.up = function(knex) {
             .notNullable()
             .unique()
         table.string('business_name')
+          .notNullable()
         table.string('first_name')
         table.string('last_name')
   })

@@ -1,4 +1,5 @@
 const query = require('../models.js')
+const db = require('../../data/db-config')
 
 module.exports = {
     find,
@@ -6,7 +7,9 @@ module.exports = {
     add,
     update,
     remove,
-    findBy
+    findBy,
+    addFavBusiness,
+    getFavBusinesses
 };
 
 function find() {
@@ -23,6 +26,17 @@ function findBy(filter) {
 
 function add(user) {
     return query.add('customers', user)
+}
+
+function addFavBusiness(info) {
+    return db('customer_favs')
+        .insert(info)
+}
+
+function getFavBusinesses(customer_id) {
+    const select = ['b.business_name']
+    return query.findBy('customer_favs as cf', { customer_id }, select)
+        .join('business_users as b', 'b.id', 'cf.business_id')
 }
 
 function update(changes, id) {

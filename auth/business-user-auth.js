@@ -11,7 +11,7 @@ router.post('/register', (req, res) => {
         .then(saved => {
             if(saved.username){
                 const token = generateToken(saved)
-
+                delete saved.password
                 res.status(201).json({message: `${saved.username} successfully registered`, token, user: saved})
             }else {
                 res.status(400).json({message: 'There was an error registering', error: saved})
