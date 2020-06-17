@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-    return query.find('business_business_users')
+    return query.find('business_users')
 }
 
 function findById(id) {
