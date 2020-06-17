@@ -9,9 +9,13 @@ router.post('/register', (req, res) => {
     user.password = hash
     BusinessUser.add(user)
         .then(saved => {
-            const token = generateToken(saved)
+            if(saved.username){
+                const token = generateToken(saved)
 
-            res.status(201).json({message: `${saved.username} successfully registered`, token, user: saved})
+                res.status(201).json({message: `${saved.username} successfully registered`, token, user: saved})
+            }else {
+                res.status(400).json({message: 'There was an error registering', error: saved})
+            }
         })
         .catch(err => {
             res.status(500).json({message: 'There was an error registering', error: err})
