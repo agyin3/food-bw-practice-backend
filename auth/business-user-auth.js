@@ -45,6 +45,7 @@ function generateToken(user) {
     const payload = {
         user_id: user.id,
         username: user.username,
+        type: "business"
     };
 
     //Token expiration
